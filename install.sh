@@ -44,9 +44,9 @@ function greeting() {
 	echo
 	echo
 	echo
-	echo "This is NOT a silent install" 
+	echo  
 	echo
-	echo "you will be asked several questions as it progresses"
+	echo 
 	echo
 	echo
 	echo
@@ -54,8 +54,9 @@ function greeting() {
 	echo "++++++++  Things you need to know before you start  ++++++++"
 	echo "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
 	echo "++                                                        ++"
-	echo "++ 1.) This first script will install the Gnome DE + GDM  ++"
+	echo "++ 1.) "This is NOT a silent install"                     ++"
 	echo "++                                                        ++"
+	echo "++ "you will be asked several questions as it progresses" ++"
 	echo "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
 	echo "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
 	echo
@@ -92,17 +93,19 @@ fi
 	check_exit_status
 }
 
-# searching for the fastest mirrors
+# Adding RPM Fusion as a repository
 function fusion() {
 
-	echo "Adding RPM Fusion."
+	echo "Adding RPM Fusion and Flathub."
 	echo
 	sleep 3s
-	sudo dnf install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm ;
+	sudo dnf install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm;
+	echo
+	flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 	check_exit_status
 }
 
-# Downloading and installing all Arch Linux and ArcoLinux packages
+# Updating Fedora
 function update() {
 
 	echo "Updating Fedora."
@@ -112,7 +115,7 @@ function update() {
 	check_exit_status
 }
 
-# Downloading and installing all Arch Linux and ArcoLinux packages
+# Removing unwanted pre-installed packages
 function debloat() {
 
 	echo "Debloating Fedora."
@@ -122,7 +125,7 @@ function debloat() {
 	check_exit_status
 }
 
-# Setting up GDM login screen
+# Installing Packages
 function install() {
 
 	echo "Installing Packages."
@@ -210,14 +213,12 @@ function finish() {
             if [ "$answer" == "n" ]
             then
 		echo
-		echo "----------------------------------------------"
-		echo "---- ArcoLinux part 1 has been installed! ----"
-		echo "----------------------------------------------"
+		echo "----------------------------------------------------"
+		echo "---- Fedora Victory Edition has been installed! ----"
+		echo "----------------------------------------------------"
 		echo
 		check_exit_status
 		echo
-            	echo "After restarting, open terminal and run arcosetup-2.sh from the arco-gnome folder to finish this setup"
-            	echo
 		echo "Restarting in 20s"
 		sleep 15s
                 reboot
@@ -231,5 +232,7 @@ fusion
 update
 debloat
 install
-
+icons
+dock
+backgrounds
 finish
