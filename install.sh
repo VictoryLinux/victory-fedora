@@ -243,11 +243,13 @@ function dock() {
 	echo "Setting up the Dock."
 	echo
 	sleep 3s
-#	cp /usr/share/applications/plank.desktop ~/.config/autostart/
-#	sudo chmod +x ~/.config/autostart/plank.desktop
+	cd Downloads
+	git clone https://github.com/micheleg/dash-to-dock.git
+	cd dash-to-dock
+	make
+	make install
 	echo
 	gsettings set org.gnome.shell favorite-apps "['brave-browser.desktop', 'firefox.desktop', 'chromium.desktop', 'org.gnome.Nautilus.desktop', 'simplenote.desktop', 'terminator.desktop', 'realvnc-vncviewer.desktop', 'com.teamviewer.TeamViewer.desktop', 'virtualbox.desktop', 'net.lutris.Lutris.desktop', 'discord.desktop', 'onboard.desktop', 'tv.plex.PlexMediaPlayer.desktop']"
-	
 	check_exit_status
 }
 
