@@ -43,16 +43,16 @@ function greeting() {
 	echo "+-------------------------------------------------------------------------+"
 	echo
 	echo
-	echo "#####################################################################"
-	echo "#  ____    ____  __                                                 #"
-	echo "#  \   \  /   / |__| ____ ________    ____    _______ ___  ___      #"
-	echo "#   \   \/   /  ___ |   _|\__   __\ /   _  \ |  __   |\  \/  /      #"
-	echo "#    \      /  |   ||  |_   |  |   |   |_|  ||  | |__| \   /        #"
-	echo "#     \____/   |___||____|  |__|    \_____ / |__|       |_|         #"
-	echo "#                                                                   #"
-	echo "# Victory Linux Fedora Install script                               #"
-	echo "# https://github.com/VictoryLinux                                   #"
-	echo "#####################################################################"
+	echo    "#####################################################################"
+	echo    "#  ____    ____  __                                                 #"
+	echo    "#  \   \  /   / |__| ____ ________    ____    _______ ___  ___      #"
+	echo    "#   \   \/   /  ___ |   _|\__   __\ /   _  \ |  __   |\  \/  /      #"
+	echo    "#    \      /  |   ||  |_   |  |   |   |_|  ||  | |__| \   /        #"
+	echo    "#     \____/   |___||____|  |__|    \_____ / |__|       |_|         #"
+	echo    "#                                                                   #"
+	echo    "# Victory Linux Fedora Install script                               #"
+	echo    "# https://github.com/VictoryLinux                                   #"
+	echo    "#####################################################################"
 	echo
 	echo "DO NOT JUST RUN THIS. EXAMINE AND JUDGE. RUN AT YOUR OWN RISK."  
 	echo
@@ -255,6 +255,7 @@ function finish() {
 }
 
 greeting
+hostname
 fusion
 update
 debloat
