@@ -1,12 +1,15 @@
 #!/bin/bash
-# Start Setup my ArcoLinux
 
-##################################################################################################################
-# # Aurthor     :VictoryLinux 
-# 
-# 
-# 
-##################################################################################################################
+#####################################################################
+#  ____    ____  __                                                 #
+#  \   \  /   / |__| ____ ________    ____    _______ ___  ___      #
+#   \   \/   /  ___ |   _|\__   __\ /   _  \ |  __   |\  \/  /      #
+#    \      /  |   ||  |_   |  |   |   |_|  ||  | |__| \   /        #
+#     \____/   |___||____|  |__|    \_____ / |__|       |_|         #
+#                                                                   #
+# Victory Linux Fedora Install script                               #
+# https://github.com/VictoryLinux                                   #
+#####################################################################
 
 # Make sure each command executes properly
 check_exit_status() {
@@ -39,12 +42,19 @@ function greeting() {
 	echo "|-------   Hello, $USER. Let's setup your Fedora Victory-Edition.  -------|"
 	echo "+-------------------------------------------------------------------------+"
 	echo
-	echo "DO NOT JUST RUN THIS. EXAMINE AND JUDGE. RUN AT YOUR OWN RISK."
 	echo
+	echo "#####################################################################"
+	echo "#  ____    ____  __                                                 #"
+	echo "#  \   \  /   / |__| ____ ________    ____    _______ ___  ___      #"
+	echo "#   \   \/   /  ___ |   _|\__   __\ /   _  \ |  __   |\  \/  /      #"
+	echo "#    \      /  |   ||  |_   |  |   |   |_|  ||  | |__| \   /        #"
+	echo "#     \____/   |___||____|  |__|    \_____ / |__|       |_|         #"
+	echo "#                                                                   #"
+	echo "# Victory Linux Fedora Install script                               #"
+	echo "# https://github.com/VictoryLinux                                   #"
+	echo "#####################################################################"
 	echo
-	echo
-	echo
-	echo  
+	echo "DO NOT JUST RUN THIS. EXAMINE AND JUDGE. RUN AT YOUR OWN RISK."  
 	echo
 	echo 
 	echo
@@ -90,6 +100,23 @@ fi
 
 	echo
 	
+	check_exit_status
+}
+
+# Set the Hostname
+function hostname() {
+	echo "Set the Hostname in 2 places."
+	echo
+	sleep 3s
+	clear
+	echo "1st location."
+	sleep 3s
+	sudo nano /etc/hostname;
+	echo
+	clear
+	echo "2nd location."
+	sleep 3s
+	sudo nano /etc/hosts;
 	check_exit_status
 }
 
