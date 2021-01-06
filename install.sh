@@ -103,6 +103,12 @@ fi
 	check_exit_status
 }
 
+# Enable root user
+function root() {
+	echo "Enabling Root user."
+	sudo passwd root
+}
+
 # Set the Hostname
 function hostname() {
 	echo "Set the Hostname in 2 places."
@@ -158,20 +164,54 @@ function install() {
 	echo "Installing Packages."
 	echo
 	sleep 3s
-	sudo dnf install -y gnome-tweak-tool kmail terminator dconf-editor vlc htop terminator curl git meson chrome-gnome-shell onboard neofetch flatpak variety unrar appimagelauncher fish	util-linux-user stacer brave-browser binutils gcc make patch libgomp glibc-headers glibc-devel kernel-headers kernel-devel dkms qt5-qtx11extras libxkbcommon VirtualBox;
+	sudo dnf install -y gnome-tweak-tool nodejs npm make kmail terminator dconf-editor vlc htop terminator meson onboard neofetch variety unrar fish util-linux-user stacer patch kernel-devel dkms VirtualBox;
 	check_exit_status
 	sleep 3s
 	echo
 	systemctl restart vboxdrv
 	echo
 	sleep 3s
-	flatpak install flathub org.glimpse_editor.Glimpse
-	flatpak install flathub com.discordapp.Discord
-	flatpak install flathub org.onlyoffice.desktopeditors
-#	flatpak install flathub com.spotify.Client
-	flatpak install flathub com.sublimetext.three
-	flatpak install flathub com.moonlight_stream.Moonlight
 	echo
+	sudo dnf install dnf-plugins-core
+	echo
+	sudo dnf config-manager --add-repo https://brave-browser-rpm-release.s3.brave.com/x86_64/
+	echo
+	sudo rpm --import https://brave-browser-rpm-release.s3.brave.com/brave-core.asc
+	echo
+	sudo dnf install brave-browser -y
+	echo
+
+	echo
+	sleep 3s
+	flatpak install flathub org.glimpse_editor.Glimpse -y
+	flatpak install flathub com.discordapp.Discord -y
+	flatpak install flathub org.onlyoffice.desktopeditors -y
+#	flatpak install flathub com.spotify.Client -y
+	flatpak install flathub com.sublimetext.three -y
+	flatpak install flathub com.moonlight_stream.Moonlight -y
+	flatpak install flathub com.simplenote.Simplenote -y
+	flatpak install flathub com.system76.Popsicle -y
+	echo
+	flatpak remote-add --if-not-exists plex-media-player https://flatpak.knapsu.eu/plex-media-player.flatpakrepo
+	flatpak install plex-media-player tv.plex.PlexMediaPlayer -y
+	echo
+	echo /usr/local/bin/fish | sudo tee -a /etc/shells
+	echo
+	cd Downloads
+	git clone https://github.com/ryanoasis/nerd-fonts
+	cd nerd-fonts
+	./install.sh
+	echo
+	cd ~
+	curl -fsSL https://starship.rs/install.sh | bash
+	echo
+	chsh -s /usr/bin/fish
+	echo
+	git clone https://github.com/VictoryLinux/fish
+	cd fish
+	mkdir -p ~/.config/fish
+	sudo cp -r ~/victory-fedora/fish/config.fish ~/.config/fish/
+
 }
 
 # Installing my Icon Themes
@@ -206,7 +246,7 @@ function dock() {
 #	cp /usr/share/applications/plank.desktop ~/.config/autostart/
 #	sudo chmod +x ~/.config/autostart/plank.desktop
 	echo
-	gsettings set org.gnome.shell favorite-apps "['firefox.desktop', 'chromium.desktop', 'org.gnome.Nautilus.desktop', 'simplenote.desktop', 'terminator.desktop', 'realvnc-vncviewer.desktop', 'com.teamviewer.TeamViewer.desktop', 'virtualbox.desktop', 'onboard.desktop']"
+	gsettings set org.gnome.shell favorite-apps "['brave-browser.desktop', 'firefox.desktop', 'chromium.desktop', 'org.gnome.Nautilus.desktop', 'simplenote.desktop', 'terminator.desktop', 'realvnc-vncviewer.desktop', 'com.teamviewer.TeamViewer.desktop', 'virtualbox.desktop', 'net.lutris.Lutris.desktop', 'discord.desktop', 'onboard.desktop', 'tv.plex.PlexMediaPlayer.desktop']"
 	
 	check_exit_status
 }
@@ -217,10 +257,9 @@ function backgrounds() {
 	echo "Setting up Favorite Wallpaper."
 	echo
 	sleep 3s
-#	sudo mv ~/victory-edition/victory/backgrounds/my_arcolinux /usr/share/backgrounds/
-#	sudo mv ~/victory-edition/victory/backgrounds/my_gnome /usr/share/backgrounds/
-#	sudo mv ~/victory-edition/victory/backgrounds/my_wall /usr/share/backgrounds/
-	sudo cp -r ~/victory-edition/victory/backgrounds/victory /usr/share/backgrounds/
+	git clone https://github.com/VictoryLinux/victory-wallpaper
+	echo
+	sudo cp -r ~/victory-fedora/victory-wallpaper /usr/share/backgrounds/
 	echo
 	sudo rm -rf /usr/share/backgrounds/gnome
 	sudo rm -rf /usr/share/backgrounds/fedora-workstation
@@ -229,17 +268,11 @@ function backgrounds() {
 
 # finish
 function finish() {
-	read -p "Do you want to stay here and finish now? (y/n) " answer 
+	read -p "Are You ready to restart now? (y/n) " answer 
 
             if [ "$answer" == "y" ]
             then
-            	cd arco-gnome
-		echo
-		sh arcosetup-victory.sh
-
-            if [ "$answer" == "n" ]
-            then
-		echo
+            	cecho
 		echo "----------------------------------------------------"
 		echo "---- Fedora Victory Edition has been installed! ----"
 		echo "----------------------------------------------------"
@@ -249,13 +282,19 @@ function finish() {
 		echo "Restarting in 20s"
 		sleep 15s
                 reboot
+
+            if [ "$answer" == "n" ]
+            then
+		exit 1
+
             fi
         fi
 
 }
 
-greeting
+root
 hostname
+greeting
 fusion
 update
 debloat
