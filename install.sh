@@ -237,17 +237,43 @@ function icons() {
 	check_exit_status
 }
 
-# Setting up Favorite Dock icons
-function dock() {
-
-	echo "Setting up the Dock."
-	echo
+# Install gnome extensions
+function extensions() {
+	
+	#Dash-to-Dock
+	echo "Installing Dash-to-Dock"
 	sleep 3s
 	cd Downloads
 	git clone https://github.com/micheleg/dash-to-dock.git
 	cd dash-to-dock
 	make
 	make install
+	#Caffeine
+	echo "Installing Caffeine"
+	sleep 3s
+	git clone git://github.com/eonpatapon/gnome-shell-extension-caffeine.git
+	cd gnome-shell-extension-caffeine
+	./update-locale.sh
+	glib-compile-schemas --strict --targetdir=caffeine@patapon.info/schemas/ caffeine@patapon.info/schemas
+	cp -r caffeine@patapon.info ~/.local/share/gnome-shell/extensions
+	echo "Enableing Dash-to-Dock"
+	sleep 3s
+	gnome-shell-extension-tool -e dash-to-dock
+	echo "Enableing Caffeine"
+	sleep 3s
+	gnome-shell-extension-tool -e caffeine
+	echo "Enableing Window List"
+	sleep 3s
+	gnome-shell-extension-tool -e window-list
+	check_exit_status
+}
+
+# Setting up Favorite Dock icons
+function dock() {
+
+	echo "Setting up the Dock."
+	echo
+	sleep 3s
 	echo
 	gsettings set org.gnome.shell favorite-apps "['brave-browser.desktop', 'firefox.desktop', 'chromium.desktop', 'org.gnome.Nautilus.desktop', 'simplenote.desktop', 'terminator.desktop', 'realvnc-vncviewer.desktop', 'com.teamviewer.TeamViewer.desktop', 'virtualbox.desktop', 'net.lutris.Lutris.desktop', 'discord.desktop', 'onboard.desktop', 'tv.plex.PlexMediaPlayer.desktop']"
 	check_exit_status
@@ -302,6 +328,7 @@ update
 debloat
 install
 icons
+extensions
 dock
 backgrounds
 finish
