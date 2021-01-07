@@ -341,9 +341,9 @@ function finish() {
 
 }
 
+greeting
 root
 hostname
-greeting
 fusion
 update
 debloat
