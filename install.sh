@@ -64,9 +64,9 @@ function greeting() {
 	echo "++++++++  Things you need to know before you start  ++++++++"
 	echo "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
 	echo "++                                                        ++"
-	echo "++ 1.) "This is NOT a silent install"                     ++"
+	echo "++ 1.) "This is NOT a silent install"                      ++"
 	echo "++                                                        ++"
-	echo "++ "you will be asked several questions as it progresses" ++"
+	echo "++ "you will be asked several questions as it progresses"  ++"
 	echo "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
 	echo "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
 	echo
@@ -105,65 +105,82 @@ fi
 
 # Enable root user
 function root() {
-	echo "Enabling Root user."
+
+	echo "############################"
+	echo "|    Enabling Root user.   |"
+	echo "############################"
+	echo
+	sleep 6s
 	sudo passwd root
+	echo
+	check_exit_status
 }
 
 # Set the Hostname
 function hostname() {
-	echo "Set the Hostname in 2 places."
+	
+	echo "############################"
+	echo "|     Set the Hostname.    |"
+	echo "############################"
 	echo
-	sleep 3s
-	clear
-	echo "1st location."
-	sleep 3s
+	sleep 6s
 	sudo nano /etc/hostname;
 	echo
-	clear
-	echo "2nd location."
-	sleep 3s
-	sudo nano /etc/hosts;
 	check_exit_status
 }
 
 # Adding RPM Fusion as a repository
 function fusion() {
 
-	echo "Adding RPM Fusion and Flathub."
+	echo "#########################################"
+	echo "|     Adding RPM Fusion and Flathub.    |"
+	echo "#########################################"
 	echo
-	sleep 3s
+	sleep 6s
 	sudo dnf install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm;
 	echo
 	flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+	echo
 	check_exit_status
 }
 
 # Updating Fedora
 function update() {
 
-	echo "Updating Fedora."
+	echo "###########################"
+	echo "|     Updating Fedora.    |"
+	echo "###########################"
 	echo
-	sleep 3s
+	sleep 6s
+	Adding RPM Fusion and Flathub
+	echo
+	sleep 6s	
 	sudo dnf update -y;
+	echo
 	check_exit_status
 }
 
 # Removing unwanted pre-installed packages
 function debloat() {
 
-	echo "Debloating Fedora."
+	echo "#############################"
+	echo "|     Debloating Fedora.    |"
+	echo "#############################"
 	echo
-	sleep 3s
+	sleep 6s
 	sudo dnf remove gnome-clocks gnome-maps simple-scan gnome-weather gnome-boxes totem rhythmbox;
+	echo
 	check_exit_status
 }
 
 # Installing Packages
 function install() {
 
-	echo "Installing Packages."
+	echo "###############################"
+	echo "|     Installing Packages.    |"
+	echo "###############################"
 	echo
-	sleep 3s
+	sleep 6s
 	sudo dnf install -y gnome-tweak-tool nodejs npm make kmail terminator dconf-editor htop terminator meson onboard neofetch variety unrar fish util-linux-user stacer patch kernel-devel dkms VirtualBox;
 	check_exit_status
 	sleep 3s
@@ -223,15 +240,18 @@ function install() {
 	cd fish
 	mkdir -p ~/.config/fish
 	sudo cp -r ~/victory-fedora/fish/config.fish ~/.config/fish/
-
+	echo
+	check_exit_status
 }
 
 # Installing my Icon Themes
 function icons() {
 
-	echo "Giving Gnome a facelift."
+	echo "###################################"
+	echo "|     Giving Gnome a facelift.    |"
+	echo "###################################"
 	echo
-	sleep 3s
+	sleep 6s
 #	git clone https://github.com/pop-os/icon-theme pop-icon-theme
 #	cd pop-icon-theme
 #	meson build
@@ -246,6 +266,7 @@ function icons() {
 	rm -rf ~/flat-remix flat-remix-gtk
 	gsettings set org.gnome.desktop.interface gtk-theme "Flat-Remix-GTK-Blue-Dark"
 	gsettings set org.gnome.desktop.interface icon-theme "Flat-Remix-Blue-Dark"
+	echo
 	check_exit_status
 }
 
@@ -253,65 +274,95 @@ function icons() {
 function extensions() {
 	
 	#Dash-to-Dock
-	echo "Installing Dash-to-Dock"
-	sleep 3s
+	echo "###################################"
+	echo "|     Installing Dash-to-Dock.    |"
+	echo "###################################"
+	echo
+	sleep 6s
 	cd Downloads
 	git clone https://github.com/micheleg/dash-to-dock.git
 	cd dash-to-dock
 	make
 	make install
+	
 	#Caffeine
-	echo "Installing Caffeine"
-	sleep 3s
+	echo "###############################"
+	echo "|     Installing Caffeine.    |"
+	echo "###############################"
+	echo
+	sleep 6s
 	git clone git://github.com/eonpatapon/gnome-shell-extension-caffeine.git
 	cd gnome-shell-extension-caffeine
 	./update-locale.sh
 	glib-compile-schemas --strict --targetdir=caffeine@patapon.info/schemas/ caffeine@patapon.info/schemas
 	cp -r caffeine@patapon.info ~/.local/share/gnome-shell/extensions
-	echo "Enableing Dash-to-Dock"
-	sleep 3s
+	
+	echo "##################################"
+	echo "|     Enableing Dash-to-Dock.    |"
+	echo "##################################"
+	echo
+	sleep 6s
 	gnome-shell-extension-tool -e dash-to-dock
-	echo "Enableing Caffeine"
-	sleep 3s
+	
+	echo "##############################"
+	echo "|     Enableing Caffeine.    |"
+	echo "##############################"
+	echo
+	sleep 6s
 	gnome-shell-extension-tool -e caffeine
-	echo "Enableing Window List"
-	sleep 3s
+	
+	echo "#################################"
+	echo "|     Enableing Window List.    |"
+	echo "#################################"
+	echo
+	sleep 6s
 	gnome-shell-extension-tool -e window-list
+	echo
 	check_exit_status
 }
 
 # Setting up Favorite Dock icons
 function dock() {
 
-	echo "Setting up the Dock."
+	echo "###############################"
+	echo "|     Setting up the Dock.    |"
+	echo "###############################"
 	echo
-	sleep 3s
+	sleep 6s
 	echo
 	gsettings set org.gnome.shell favorite-apps "['brave-browser.desktop', 'firefox.desktop', 'chromium.desktop', 'org.gnome.Nautilus.desktop', 'simplenote.desktop', 'terminator.desktop', 'realvnc-vncviewer.desktop', 'com.teamviewer.TeamViewer.desktop', 'virtualbox.desktop', 'net.lutris.Lutris.desktop', 'discord.desktop', 'onboard.desktop', 'tv.plex.PlexMediaPlayer.desktop']"
+	echo
 	check_exit_status
 }
 
 # Put the wallpaper
 function backgrounds() {
 
-	echo "Setting up Favorite Wallpaper."
+	echo "#########################################"
+	echo "|     Setting up Favorite Wallpaper.    |"
+	echo "#########################################"
 	echo
-	sleep 3s
+	sleep 6s
 	git clone https://github.com/VictoryLinux/victory-wallpaper
 	echo
 	sudo cp -r ~/victory-fedora/victory-wallpaper /usr/share/backgrounds/
 	echo
 	sudo rm -rf /usr/share/backgrounds/gnome
 	sudo rm -rf /usr/share/backgrounds/fedora-workstation
+	echo
 	check_exit_status
 }
 
 #
 function structure() {
 	
-	echo "Setting Time Format"
-	sleep 3s
+	echo "###############################"
+	echo "|     Setting Time Format.    |"
+	echo "###############################"
+	echo
+	sleep 6s
 	gsettings set org.gnome.desktop.interface clock-format 12h
+	echo
 	check_exit_status
 }
 
