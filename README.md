@@ -1,6 +1,8 @@
 # VictoryLinux Fedora-Edition
 
-A personal project to setup a fresh Fedora install the way I like it.
+A personal project to setup a fresh Fedora install the way I like it. 
+
+A work in progress.
 
 Feel free to take, fork, and make your own.
 
