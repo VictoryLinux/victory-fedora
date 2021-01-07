@@ -164,7 +164,7 @@ function install() {
 	echo "Installing Packages."
 	echo
 	sleep 3s
-	sudo dnf install -y gnome-tweak-tool nodejs npm make kmail terminator dconf-editor vlc htop terminator meson onboard neofetch variety unrar fish util-linux-user stacer patch kernel-devel dkms VirtualBox;
+	sudo dnf install -y gnome-tweak-tool nodejs npm make kmail terminator dconf-editor htop terminator meson onboard neofetch variety unrar fish util-linux-user stacer patch kernel-devel dkms VirtualBox;
 	check_exit_status
 	sleep 3s
 	echo
@@ -202,6 +202,7 @@ function install() {
 	flatpak install flathub com.moonlight_stream.Moonlight -y
 	flatpak install flathub com.simplenote.Simplenote -y
 	flatpak install flathub com.system76.Popsicle -y
+	flatpak install flathub org.videolan.VLC -y
 	echo
 	flatpak remote-add --if-not-exists plex-media-player https://flatpak.knapsu.eu/plex-media-player.flatpakrepo
 	flatpak install plex-media-player tv.plex.PlexMediaPlayer -y
