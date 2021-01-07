@@ -173,7 +173,15 @@ function install() {
 	sleep 3s
 	dnf module install nodejs:15
 	echo
+	git clone https://github.com/pop-os/shell
+	cd shell
+	make local-install
 	sleep 3s
+	sudo dnf install cargo rust gtk3-devel
+	git clone https://github.com/pop-os/shell-shortcuts
+	cd shell-shortcuts
+	make
+	sudo make install
 	echo
 	sudo dnf install dnf-plugins-core
 	echo
