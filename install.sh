@@ -171,6 +171,9 @@ function install() {
 	systemctl restart vboxdrv
 	echo
 	sleep 3s
+	dnf module install nodejs:15
+	echo
+	sleep 3s
 	echo
 	sudo dnf install dnf-plugins-core
 	echo
