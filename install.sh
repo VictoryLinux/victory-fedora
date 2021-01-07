@@ -152,9 +152,7 @@ function update() {
 	echo "###########################"
 	echo
 	sleep 6s
-	Adding RPM Fusion and Flathub
-	echo
-	sleep 6s	
+	echo	
 	sudo dnf update -y;
 	echo
 	check_exit_status
