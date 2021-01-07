@@ -166,7 +166,7 @@ function debloat() {
 	echo "#############################"
 	echo
 	sleep 6s
-	sudo dnf remove gnome-clocks gnome-maps simple-scan gnome-weather gnome-boxes totem rhythmbox;
+	sudo dnf -y remove gnome-clocks gnome-maps simple-scan gnome-weather gnome-boxes totem rhythmbox;
 	echo
 	check_exit_status
 }
@@ -354,12 +354,14 @@ function backgrounds() {
 #
 function structure() {
 	
-	echo "###############################"
-	echo "|     Setting Time Format.    |"
-	echo "###############################"
+	echo "##################################"
+	echo "|     Setting Format changes.    |"
+	echo "##################################"
 	echo
 	sleep 6s
 	gsettings set org.gnome.desktop.interface clock-format 12h
+	echo
+	gsettings set org.gnome.desktop.wm.preferences button-layout ":minimize,maximize,close"
 	echo
 	check_exit_status
 }
