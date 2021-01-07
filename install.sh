@@ -305,6 +305,15 @@ function backgrounds() {
 	check_exit_status
 }
 
+#
+function structure() {
+	
+	echo "Setting Time Format"
+	sleep 3s
+	gsettings set org.gnome.desktop.interface clock-format 12h
+	check_exit_status
+}
+
 # finish
 function finish() {
 	read -p "Are You ready to restart now? (y/n) " answer 
@@ -342,4 +351,5 @@ icons
 extensions
 dock
 backgrounds
+structure
 finish
