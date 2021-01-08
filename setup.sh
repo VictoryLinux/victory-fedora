@@ -206,8 +206,6 @@ function install() {
 	echo
 	sudo dnf install brave-browser -y
 	echo
-
-	echo
 	sleep 3s
 	flatpak install flathub org.glimpse_editor.Glimpse -y
 	flatpak install flathub com.discordapp.Discord -y
@@ -224,7 +222,6 @@ function install() {
 	echo
 	echo /usr/local/bin/fish | sudo tee -a /etc/shells
 	echo
-	cd Downloads
 	git clone https://github.com/ryanoasis/nerd-fonts
 	cd nerd-fonts
 	./install.sh
@@ -300,21 +297,21 @@ function extensions() {
 	echo "##################################"
 	echo
 	sleep 6s
-	gnome-shell-extension-tool -e dash-to-dock
+	gnome-extensions -e dash-to-dock
 	
 	echo "##############################"
 	echo "|     Enableing Caffeine.    |"
 	echo "##############################"
 	echo
 	sleep 6s
-	gnome-shell-extension-tool -e caffeine
+	gnome-extensions -e caffeine
 	
 	echo "#################################"
 	echo "|     Enableing Window List.    |"
 	echo "#################################"
 	echo
 	sleep 6s
-	gnome-shell-extension-tool -e window-list
+	gnome-extensions -e window-list
 	echo
 	check_exit_status
 }
@@ -379,9 +376,9 @@ function finish() {
 		echo
 		check_exit_status
 		echo
-		echo "Restarting in 20s"
+		echo "Restarting in 15s"
 		sleep 15s
-                reboot
+                shutdown -r now
 
             if [ "$answer" == "n" ]
             then
