@@ -297,21 +297,21 @@ function extensions() {
 	echo "##################################"
 	echo
 	sleep 6s
-	gnome-extensions -e dash-to-dock
+	gnome-extensions enable dash-to-dock
 	
 	echo "##############################"
 	echo "|     Enableing Caffeine.    |"
 	echo "##############################"
 	echo
 	sleep 6s
-	gnome-extensions -e caffeine
+	gnome-extensions enable caffeine
 	
 	echo "#################################"
 	echo "|     Enableing Window List.    |"
 	echo "#################################"
 	echo
 	sleep 6s
-	gnome-extensions -e window-list
+	gnome-extensions enable window-list
 	echo
 	check_exit_status
 }
@@ -338,12 +338,11 @@ function backgrounds() {
 	echo "#########################################"
 	echo
 	sleep 6s
+	cd victory-fedora
+	echo
 	git clone https://github.com/VictoryLinux/victory-wallpaper
 	echo
 	sudo cp -r ~/victory-fedora/victory-wallpaper /usr/share/backgrounds/
-	echo
-	sudo rm -rf /usr/share/backgrounds/gnome
-	sudo rm -rf /usr/share/backgrounds/fedora-workstation
 	echo
 	check_exit_status
 }
@@ -359,6 +358,29 @@ function structure() {
 	gsettings set org.gnome.desktop.interface clock-format 12h
 	echo
 	gsettings set org.gnome.desktop.wm.preferences button-layout ":minimize,maximize,close"
+	echo
+	cd victory-fedora
+	echo
+	git clone http://github.com/VictoryLinux/fish
+	echo
+	sudo cp -r ~/victory-fedora/fish/config.fish ~/.config/fish/
+	echo
+	check_exit_status
+}
+
+#
+function clean-up() {
+	
+	echo "##################################"
+	echo "|     Cleaning up Left Overs.    |"
+	echo "##################################"
+	echo
+	sleep 6s
+	sudo rm -rf /usr/share/backgrounds/gnome
+	echo
+	sudo rm -rf /usr/share/backgrounds/fedora-workstation
+	echo
+	sudo rm -rf ~/victory-fedora
 	echo
 	check_exit_status
 }
@@ -401,4 +423,5 @@ extensions
 dock
 backgrounds
 structure
+clean-up
 finish
