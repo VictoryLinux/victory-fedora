@@ -268,10 +268,10 @@ function icons() {
 # Install gnome extensions
 function extensions() {
 	
-	#Dash-to-Dock
-	echo "###################################"
-	echo "|     Installing Dash-to-Dock.    |"
-	echo "###################################"
+	# Dash-to-Dock
+	echo "#######################################"
+	echo "|     Installing Gnome Extensions.    |"
+	echo "#######################################"
 	echo
 	sleep 6s
 	cd Downloads
@@ -280,10 +280,7 @@ function extensions() {
 	make
 	make install
 	
-	#Caffeine
-	echo "###############################"
-	echo "|     Installing Caffeine.    |"
-	echo "###############################"
+	# Caffeine
 	echo
 	sleep 6s
 	git clone git://github.com/eonpatapon/gnome-shell-extension-caffeine.git
@@ -291,28 +288,48 @@ function extensions() {
 	./update-locale.sh
 	glib-compile-schemas --strict --targetdir=caffeine@patapon.info/schemas/ caffeine@patapon.info/schemas
 	cp -r caffeine@patapon.info ~/.local/share/gnome-shell/extensions
+	echo
 	
-	echo "##################################"
-	echo "|     Enableing Dash-to-Dock.    |"
-	echo "##################################"
+	# Sound Input & Output Device Chooser
 	echo
 	sleep 6s
-	gnome-extensions enable dash-to-dock
+	git clone https://github.com/kgshank/gse-sound-output-device-chooser.git
+	cp --recursive gse-sound-output-device-chooser/sound-output-device-chooser@kgshank.net $HOME/.local/share/gnome-shell/extensions/sound-output-device-chooser@kgshank.net
+	echo
 	
-	echo "##############################"
-	echo "|     Enableing Caffeine.    |"
-	echo "##############################"
+	# Applications-Overview-Tooltip
+	echo
+	sleep 6s
+	git clone https://github.com/RaphaelRochet/applications-overview-tooltip
+	cp --recursive ~/applications-overview-tooltip $HOME/.local/share/gnome-shell/extensions/applications-overview-tooltip@RaphaelRochet
+	echo
+	
+	
+	echo "################################"
+	echo "|     Enableing Extensions.    |"
+	echo "################################"
+	echo
+	# Dash-to-Dock
+	sleep 6s
+	gnome-extensions enable dash-to-dock
+	echo
+	
+	# Caffeine
 	echo
 	sleep 6s
 	gnome-extensions enable caffeine
+	echo
 	
-	echo "#################################"
-	echo "|     Enableing Window List.    |"
-	echo "#################################"
+	# Window-List
 	echo
 	sleep 6s
 	gnome-extensions enable window-list
 	echo
+	
+	# Applications-Overview-Tooltip
+	echo
+	sleep 6s
+	
 	check_exit_status
 }
 
